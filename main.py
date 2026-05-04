@@ -79,19 +79,25 @@ async def command_start_handler(message: types.Message, state: FSMContext):
 
     # ZMIANA: Dodano emoji i zmieniono "Miasto" na "Kultura i architektura"
     await message.answer(text, parse_mode="HTML",
-                         reply_markup=make_reply_keyboard(
-                             ["Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️", "⏭ Pomiń"]))
-    await state.set_state(TravelForm.choosing_type)
+                         reply_markup=make_reply_keyboard([
+                             "Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
+                             "Relaks i SPA 🧖‍♀️", "Rozrywka i atrakcje 🎢", "⏭ Pomiń"
+                         ]))
 
+    await state.set_state(TravelForm.choosing_type)
 
 @dp.message(TravelForm.choosing_type)
 async def type_chosen(message: types.Message, state: FSMContext):
-    # ZMIANA: Mapowanie pięknego tekstu z przycisków na wartości, które rozumie baza danych
+    # Mapujemy dokładnie to, co jest na przyciskach, na wartości dla bazy danych
     ui_to_db = {
         "Morze 🏖️": "Morze",
         "Góry ⛰️": "Góry",
-        "Kultura i architektura 🏛️": "Miasto"
+        "Kultura i architektura 🏛️": "Miasto",
+        "Relaks i SPA 🧖‍♀️": "Relaks",  # <--- MUSI TU BYĆ
+        "Rozrywka i atrakcje 🎢": "Rozrywka"  # <--- MUSI TU BYĆ
     }
+
+    # Pobieramy wartość z mapy lub zostawiamy oryginał (np. dla "⏭ Pomiń")
     db_type = ui_to_db.get(message.text, message.text)
 
     await state.update_data(chosen_type=db_type)
@@ -283,7 +289,7 @@ async def skip_wish_handler(message: types.Message, state: FSMContext):
             if holiday != "brak danych":
                 query = urllib.parse.quote_plus(f"{holiday} {country}")
                 holiday_link = f"<a href='https://www.google.com/search?q={query}'>{holiday}</a>"
-                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy i festiwale!)</i>"
+                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link}"
             else:
                 holiday_display = f"🎉 <b>Święta:</b> brak w najbliższym czasie"
 
@@ -468,11 +474,19 @@ async def run_console_mode():
         user_data = {}
 
         # ZMIANA: Dodany ładny interfejs i mapowanie dla konsoli
+        # ZMIANA: Dodane opcje i mapowanie w konsoli
         chosen_type_ui = get_console_choice(
             "Jaki rodzaj wyjazdu preferujesz?",
-            ["Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️", "⏭ Pomiń"]
+            ["Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
+             "Relaks i SPA 🧖‍♀️", "Rozrywka i atrakcje 🎢", "⏭ Pomiń"]
         )
-        ui_to_db = {"Morze 🏖️": "Morze", "Góry ⛰️": "Góry", "Kultura i architektura 🏛️": "Miasto"}
+        ui_to_db = {
+            "Morze 🏖️": "Morze",
+            "Góry ⛰️": "Góry",
+            "Kultura i architektura 🏛️": "Miasto",
+            "Relaks i SPA 🧖‍♀️": "Relaks",
+            "Rozrywka i atrakcje 🎢": "Rozrywka"
+        }
         user_data['chosen_type'] = ui_to_db.get(chosen_type_ui, chosen_type_ui)
 
         user_data['chosen_region'] = get_console_choice(

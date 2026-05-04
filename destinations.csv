@@ -23,7 +23,7 @@ Bułgaria,Słoneczny Brzeg,morze,ciepły,1,8,42.69,27.71,BG
 Tajlandia,Phuket,morze,ciepły,2,9,7.88,98.39,TH
 Indonezja,Bali,morze,ciepły,2,10,-8.40,115.18,ID
 Malediwy,Male,morze,ciepły,3,9,4.17,73.50,MV
-Meksyk,Cancun,morze,ciepły,2,9,21.16,-86.85,MX
+Meksyк,Cancun,morze,ciepły,2,9,21.16,-86.85,MX
 Zjednoczone Emiraty Arabskie,Dubaj,miasto,ciepły,3,10,25.20,55.27,AE
 Japonia,Tokio,miasto,umiarkowany,3,10,35.67,139.65,JP
 Stany Zjednoczone,Nowy Jork,miasto,umiarkowany,3,10,40.71,-74.00,US
@@ -96,3 +96,221 @@ RPA,Knysna,morze,umiarkowany,2,7,-34.03,23.04,ZA
 Australia,Hobart,miasto,umiarkowany,3,6,-42.88,147.32,AU
 Nowa Zelandia,Rotorua,góry,umiarkowany,3,7,-38.13,176.24,NZ
 Fidżi,Suva,miasto,ciepły,3,6,-18.14,178.44,FJ
+Niemcy,Rust,rozrywka,umiarkowany,2,9,48.26,7.72,DE
+Dania,Billund,rozrywka,umiarkowany,3,8,55.73,9.11,DK
+Francja,Marne-la-Vallee,rozrywka,umiarkowany,3,10,48.87,2.77,FR
+Hiszpania,Salou,rozrywka,ciepły,2,9,41.08,1.13,ES
+Polska,Zator,rozrywka,umiarkowany,1,9,49.99,19.40,PL
+Stany Zjednoczone,Orlando,rozrywka,ciepły,3,10,28.53,-81.37,US
+Czechy,Karlowe Wary,relaks,umiarkowany,2,8,50.23,12.87,CZ
+Islandia,Blue Lagoon,relaks,mroźny,3,9,63.88,-22.44,IS
+Polska,Ciechocinek,relaks,umiarkowany,1,6,52.88,18.79,PL
+Włochy,Montecatini Terme,relaks,ciepły,2,7,43.88,10.77,IT
+Węgry,Sarvar,relaks,umiarkowany,1,7,47.25,16.94,HU
+Słowacja,Besenova,relaks,umiarkowany,1,7,49.10,19.44,SK
+Zjednoczone Emiraty Arabskie,Yas Island,rozrywka,ciepły,3,9,24.49,54.60,AE
+Irlandia,Dublin,miasto,umiarkowany,3,8,53.34,-6.26,IE
+Irlandia,Galway,morze,umiarkowany,2,7,53.27,-9.05,IE
+Belgia,Brugia,miasto,umiarkowany,3,9,51.20,3.22,BE
+Belgia,Antwerpia,miasto,umiarkowany,2,7,51.21,4.40,BE
+Finlandia,Helsinki,miasto,mroźny,3,7,60.16,24.93,FI
+Finlandia,Rovaniemi,góry,mroźny,3,10,66.50,25.72,FI
+Słowenia,Lublana,miasto,umiarkowany,2,6,46.05,14.50,SI
+Słowenia,Bled,relaks,umiarkowany,2,8,46.36,14.11,SI
+Czarnogóra,Kotor,morze,ciepły,2,8,42.42,18.77,ME
+Czarnogóra,Zabljak,góry,umiarkowany,1,5,43.15,19.12,ME
+Albania,Ksamil,morze,ciepły,1,7,39.77,19.99,AL
+Albania,Tirana,miasto,ciepły,1,6,41.32,19.81,AL
+Estonia,Tallinn,miasto,mroźny,2,8,59.43,24.75,EE
+Luksemburg,Luksemburg,miasto,umiarkowany,3,6,49.61,6.13,LU
+Monako,Monte Carlo,rozrywka,ciepły,3,10,43.73,7.42,MC
+Andora,Andorra la Vella,góry,umiarkowany,2,7,42.50,1.52,AD
+Wietnam,Ha Long Bay,morze,ciepły,1,9,20.97,107.04,VN
+Wietnam,Hanoi,miasto,ciepły,1,8,21.02,105.83,VN
+Korea Południowa,Seul,miasto,umiarkowany,2,10,37.56,126.97,KR
+Korea Południowa,Czedżu,relaks,ciepły,2,8,33.49,126.53,KR
+Singapur,Singapur,rozrywka,ciepły,3,10,1.35,103.81,SG
+Malezja,Kuala Lumpur,miasto,ciepły,1,9,3.13,101.68,MY
+Malezja,Langkawi,morze,ciepły,2,7,6.35,99.80,MY
+Filipiny,El Nido,morze,ciepły,2,8,11.18,119.38,PH
+Izrael,Tel Awiw,morze,ciepły,3,9,32.08,34.78,IL
+Izrael,Jerozolima,miasto,ciepły,2,10,31.76,35.21,IL
+Uzbekistan,Samarkanda,miasto,ciepły,1,7,39.62,66.97,UZ
+Sri Lanka,Ella,góry,ciepły,1,8,6.87,81.04,LK
+Sri Lanka,Bentota,relaks,ciepły,1,7,6.42,79.99,LK
+Gruzja,Kutaisi,miasto,umiarkowany,1,5,42.26,42.70,GE
+Gruzja,Gudauri,góry,mroźny,1,7,42.47,44.47,GE
+Turcja,Bodrum,morze,ciepły,2,8,37.03,27.43,TR
+Turcja,Stambuł,miasto,ciepły,2,10,41.00,28.97,TR
+Japonia,Osaka,rozrywka,umiarkowany,3,9,34.69,135.50,JP
+Japonia,Hakone,relaks,umiarkowany,3,8,35.23,139.10,JP
+Tajlandia,Chiang Mai,góry,ciepły,1,8,18.78,98.98,TH
+Tajlandia,Pattaya,rozrywka,ciepły,1,9,12.92,100.88,TH
+Kolumbia,Cartagena,morze,ciepły,2,8,10.39,-75.47,CO
+Kolumbia,Medellin,miasto,ciepły,1,8,6.24,-75.58,CO
+Chile,Santiago,miasto,umiarkowany,2,7,-33.44,-70.66,CL
+Chile,Torres del Paine,góry,mroźny,3,8,-51.00,-73.00,CL
+Kostaryka,Tamarindo,morze,ciepły,2,7,10.30,-85.84,CR
+Kostaryka,Arenal,góry,ciepły,2,8,10.46,-84.70,CR
+Panama,Panama City,miasto,ciepły,2,7,8.98,-79.51,PA
+Brazylia,Sao Paulo,miasto,ciepły,2,9,-23.55,-46.63,BR
+Brazylia,Iguazu Falls,rozrywka,ciepły,2,9,-25.69,-54.43,BR
+Peru,Lima,miasto,umiarkowany,1,8,-12.04,-77.04,PE
+Ekwador,Galapagos,relaks,ciepły,3,8,-0.60,-90.30,EC
+Tunezja,Hammamet,morze,ciepły,1,7,36.40,10.61,TN
+Seszele,Mahe,morze,ciepły,3,9,-4.67,55.45,SC
+Mauritius,Flic en Flac,relaks,ciepły,3,8,-20.27,57.36,MU
+Namibia,Swakopmund,morze,umiarkowany,2,6,-22.67,14.53,NA
+Namibia,Windhuk,miasto,ciepły,2,5,-22.56,17.06,NA
+Maroko,Chefchaouen,miasto,umiarkowany,1,8,35.17,-5.26,MA
+Egipt,Hurghada,morze,ciepły,1,9,27.25,33.81,EG
+Egipt,Sharm El Sheikh,rozrywka,ciepły,1,9,27.91,34.32,EG
+Australia,Melbourne,miasto,umiarkowany,3,9,-37.81,144.96,AU
+Australia,Cairns,morze,ciepły,3,8,-16.91,145.77,AU
+Australia,Perth,miasto,ciepły,2,7,-31.95,115.86,AU
+Nowa Zelandia,Wellington,miasto,umiarkowany,3,7,-41.28,174.77,NZ
+Nowa Zelandia,Wanaka,góry,umiarkowany,2,7,-44.70,169.13,NZ
+Polinezja Francuska,Bora Bora,morze,ciepły,3,10,-16.50,-151.74,PF
+Wyspy Cooka,Rarotonga,relaks,ciepły,3,7,-21.23,-159.77,CK
+USA,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
+USA,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
+USA,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
+USA,New Orleans,miasto,ciepły,2,8,29.95,-90.07,US
+USA,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
+USA,Yellowstone,góry,umiarkowany,3,9,44.42,-110.58,US
+USA,Chicago,miasto,umiarkowany,2,9,41.87,-87.62,US
+Kanada,Toronto,miasto,umiarkowany,3,9,43.65,-79.38,CA
+Kanada,Montreal,miasto,umiarkowany,2,8,45.50,-73.56,CA
+Kanada,Quebec City,miasto,mroźny,2,8,46.81,-71.20,CA
+Polska,Wrocław,miasto,umiarkowany,1,9,51.10,17.03,PL
+Polska,Poznań,miasto,umiarkowany,1,8,52.40,16.92,PL
+Polska,Kazimierz Dolny,relaks,umiarkowany,1,7,51.32,21.94,PL
+Polska,Szczawnica,góry,umiarkowany,1,6,49.42,20.48,PL
+Polska,Mikołajki,relaks,umiarkowany,1,8,53.75,21.57,PL
+Polska,Kołobrzeg,relaks,umiarkowany,2,8,54.17,15.58,PL
+Polska,Krynica-Zdrój,relaks,umiarkowany,1,7,49.41,20.95,PL
+Polska,Ustka,morze,umiarkowany,1,7,54.58,16.86,PL
+Niemcy,Berlin,miasto,umiarkowany,2,10,52.52,13.40,DE
+Niemcy,Monachium,miasto,umiarkowany,3,9,48.13,11.58,DE
+Niemcy,Hamburg,miasto,umiarkowany,2,8,53.55,9.99,DE
+Niemcy,Garmisch-Partenkirchen,góry,umiarkowany,3,8,47.49,11.09,DE
+Francja,Lyon,miasto,umiarkowany,2,8,45.76,4.83,FR
+Francja,Bordeaux,miasto,umiarkowany,2,7,44.83,-0.57,FR
+Francja,Strasburg,miasto,umiarkowany,2,8,48.57,7.75,FR
+Włochy,Florencja,miasto,ciepły,3,10,43.76,11.25,IT
+Włochy,Neapol,miasto,ciepły,1,9,40.85,14.26,IT
+Włochy,Palermo,morze,ciepły,1,8,38.11,13.36,IT
+Włochy,Ischia,relaks,ciepły,3,7,40.73,13.94,IT
+Hiszpania,Sewilla,miasto,ciepły,2,9,37.38,-5.98,ES
+Hiszpania,Walencja,morze,ciepły,2,9,39.46,-0.37,ES
+Hiszpania,Ibiza,rozrywka,ciepły,3,10,38.90,1.43,ES
+Hiszpania,Bilbao,miasto,umiarkowany,2,7,43.26,-2.93,ES
+Portugalia,Porto,miasto,umiarkowany,1,9,41.15,-8.62,PT
+Portugalia,Algarve,morze,ciepły,2,9,37.01,-7.93,PT
+Grecja,Ateny,miasto,ciepły,1,10,37.98,23.72,GR
+Grecja,Mykonos,rozrywka,ciepły,3,10,37.44,25.33,GR
+Irlandia,Cork,miasto,umiarkowany,2,7,51.89,-8.47,IE
+Polska,Białowieża,relaks,umiarkowany,1,6,52.70,23.85,PL
+Polska,Sopot,rozrywka,umiarkowany,2,9,54.44,18.56,PL
+Polska,Toruń,miasto,umiarkowany,1,8,53.01,18.59,PL
+Polska,Szczecin,miasto,umiarkowany,1,7,53.42,14.55,PL
+Polska,Lublin,miasto,umiarkowany,1,7,51.24,22.56,PL
+Polska,Białka Tatrzańska,relaks,mroźny,2,8,49.39,20.10,PL
+Włochy,Siena,miasto,ciepły,2,8,43.31,11.33,IT
+Włochy,Piza,miasto,ciepły,2,9,43.72,10.40,IT
+Włochy,Sorrento,morze,ciepły,3,8,40.62,14.37,IT
+Włochy,Verona,miasto,umiarkowany,2,9,45.43,10.99,IT
+Włochy,Bari,morze,ciepły,1,7,41.11,16.87,IT
+Hiszpania,Sewilla,miasto,ciepły,2,9,37.38,-5.98,ES
+Hiszpania,Walencja,morze,ciepły,2,9,39.46,-0.37,ES
+Hiszpania,San Sebastian,morze,umiarkowany,3,8,43.31,-1.98,ES
+Hiszpania,Bilbao,miasto,umiarkowany,2,7,43.26,-2.93,ES
+Hiszpania,Benidorm,rozrywka,ciepły,1,9,38.53,-0.12,ES
+Portugalia,Porto,miasto,umiarkowany,1,9,41.15,-8.62,PT
+Portugalia,Albufeira,morze,ciepły,2,8,37.08,-8.24,PT
+Portugalia,Sintra,góry,umiarkowany,2,9,38.80,-9.39,PT
+Francja,Lyon,miasto,umiarkowany,2,8,45.76,4.83,FR
+Francja,Marsylia,morze,ciepły,2,8,43.29,5.36,FR
+Francja,Strasburg,miasto,umiarkowany,2,8,48.57,7.75,FR
+Francja,Bordeaux,miasto,umiarkowany,3,7,44.83,-0.57,FR
+Francja,Mont Saint-Michel,miasto,umiarkowany,3,9,48.63,-1.51,FR
+Grecja,Rodos,morze,ciepły,2,9,36.43,28.21,GR
+Grecja,Korfu,morze,ciepły,2,8,39.62,19.92,GR
+Grecja,Meteory,góry,umiarkowany,2,9,39.71,21.63,GR
+Niemcy,Hamburg,miasto,umiarkowany,3,8,53.55,9.99,DE
+Niemcy,Europa-Park,rozrywka,umiarkowany,3,10,48.26,7.72,DE
+Niemcy,Baden-Baden,relaks,umiarkowany,3,7,48.76,8.24,DE
+Niemcy,Drezno,miasto,umiarkowany,1,8,51.05,13.73,DE
+Islandia,Reykjavik,miasto,mroźny,3,9,64.14,-21.89,IS
+Islandia,Akureyri,góry,mroźny,3,6,65.68,-18.11,IS
+Islandia,Vik,morze,mroźny,3,7,63.41,-19.01,IS
+Norwegia,Bergen,miasto,mroźny,3,8,60.39,5.32,NO
+Norwegia,Stavanger,góry,mroźny,3,7,58.96,5.73,NO
+Norwegia,Lofoty,góry,mroźny,3,9,68.00,13.50,NO
+Szwecja,Goteborg,miasto,umiarkowany,3,7,57.70,11.97,SE
+Szwecja,Abisko,góry,mroźny,3,6,68.34,18.83,SE
+Szwajcaria,Lucerna,miasto,umiarkowany,3,9,47.05,8.30,CH
+Szwajcaria,Interlaken,góry,umiarkowany,3,9,46.68,7.86,CH
+Szwajcaria,Sankt Moritz,góry,mroźny,3,8,46.49,9.83,CH
+Austria,Salzburg,miasto,umiarkowany,3,9,47.80,13.04,AT
+Austria,Hallstatt,góry,umiarkowany,3,10,47.56,13.64,AT
+Słowenia,Lublana,miasto,umiarkowany,2,7,46.05,14.50,SI
+Słowenia,Bled,relaks,umiarkowany,2,9,46.36,14.11,SI
+Słowenia,Piran,morze,ciepły,2,7,45.52,13.56,SI
+Chorwacja,Split,morze,ciepły,2,9,43.50,16.44,HR
+Chorwacja,Hvar,morze,ciepły,3,8,43.17,16.44,HR
+Czarnogóra,Budva,morze,ciepły,1,9,42.29,18.84,ME
+Czarnogóra,Kotor,miasto,ciepły,1,8,42.42,18.77,ME
+Albania,Wlora,morze,ciepły,1,7,40.46,19.49,AL
+Albania,Saranda,morze,ciepły,1,8,39.85,20.00,AL
+Turcja,Stambuł,miasto,ciepły,1,10,41.00,28.97,TR
+Turcja,Bodrum,morze,ciepły,2,8,37.03,27.43,TR
+Turcja,Pamukkale,relaks,ciepły,1,9,37.92,29.12,TR
+Gruzja,Kutaisi,miasto,umiarkowany,1,6,42.26,42.70,GE
+Gruzja,Gudauri,góry,mroźny,1,7,42.47,44.47,GE
+Armenia,Erywań,miasto,ciepły,1,7,40.17,44.51,AM
+Azerbejdżan,Baku,miasto,ciepły,2,7,40.40,49.86,AZ
+Jordania,Petra,miasto,ciepły,2,10,30.32,35.44,JO
+Jordania,Wadi Rum,góry,ciepły,2,9,29.57,35.42,JO
+Oman,Muskat,miasto,ciepły,3,6,23.58,58.40,OM
+Wietnam,Da Nang,morze,ciepły,1,8,16.05,108.20,VN
+Wietnam,Hoi An,miasto,ciepły,1,9,15.88,108.33,VN
+Malezja,Kuala Lumpur,miasto,ciepły,1,9,3.13,101.68,MY
+Malezja,Langkawi,morze,ciepły,2,7,6.35,99.80,MY
+Filipiny,El Nido,morze,ciepły,2,9,11.18,119.38,PH
+Singapur,Singapur,rozrywka,ciepły,3,10,1.35,103.81,SG
+Korea Południowa,Seul,miasto,umiarkowany,3,10,37.56,126.97,KR
+Korea Południowa,Busan,morze,umiarkowany,2,8,35.17,129.07,KR
+Tajwan,Tajpej,miasto,ciepły,2,8,25.03,121.56,TW
+Chiny,Pekin,miasto,umiarkowany,2,10,39.90,116.40,CN
+Chiny,Szanghaj,miasto,umiarkowany,3,10,31.23,121.47,CN
+Mjanma,Bagan,miasto,ciepły,1,7,21.17,94.86,MM
+Indie,Goa,morze,ciepły,1,9,15.29,74.12,IN
+Indie,Agra,miasto,ciepły,1,10,27.17,78.00,IN
+Malediwy,Maafushi,morze,ciepły,2,7,3.94,73.48,MV
+USA,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
+USA,Orlando,rozrywka,ciepły,3,10,28.53,-81.37,US
+USA,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
+USA,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
+USA,Nowy Orlean,miasto,ciepły,2,8,29.95,-90.07,US
+USA,Wielki Kanion,góry,ciepły,2,10,36.05,-112.11,US
+USA,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
+USA,Anchorage,góry,mroźny,3,6,61.21,-149.90,US
+Kanada,Montreal,miasto,mroźny,2,8,45.50,-73.56,CA
+Kanada,Toronto,miasto,umiarkowany,3,9,43.65,-79.38,CA
+Brazylia,Sao Paulo,miasto,ciepły,2,8,-23.55,-46.63,BR
+Brazylia,Iguazu,rozrywka,ciepły,2,9,-25.69,-54.43,BR
+Chile,Santiago,miasto,umiarkowany,2,7,-33.44,-70.66,CL
+Chile,Pustynia Atakama,góry,ciepły,3,8,-23.86,-68.13,CL
+Argentyna,Bariloche,góry,mroźny,2,8,-41.13,-71.30,AR
+Kostaryka,San Jose,miasto,ciepły,2,6,9.92,-84.08,CR
+Australia,Melbourne,miasto,umiarkowany,3,9,-37.81,144.96,AU
+Australia,Perth,morze,ciepły,2,7,-31.95,115.86,AU
+Australia,Uluru,góry,ciepły,3,8,-25.34,131.03,AU
+Nowa Zelandia,Wellington,miasto,umiarkowany,3,7,-41.28,174.77,NZ
+Fidżi,Viti Levu,morze,ciepły,3,8,-17.71,178.06,FJ
+Polinezja Francuska,Bora Bora,morze,ciepły,3,10,-16.50,-151.74,PF
+Tunezja,Tunis,miasto,ciepły,1,7,36.80,10.18,TN
+Tunezja,Djerba,morze,ciepły,1,8,33.80,10.85,TN
+Seszele,Mahe,morze,ciepły,3,9,-4.67,55.45,SC
+Mauritius,Port Louis,miasto,ciepły,3,8,-20.16,57.50,MU
