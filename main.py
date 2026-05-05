@@ -22,7 +22,6 @@ TOKEN = os.getenv("BOT_TOKEN")
 # Globalna flaga dla AI
 USE_AI = True
 
-# Mapowanie regionów (bez zmieniania bazy danych)
 REGION_MAP = {
     'Europa': ['ES', 'PL', 'IT', 'NO', 'GR', 'PT', 'CH', 'FR', 'GB', 'CZ', 'HU', 'HR', 'BG', 'CY', 'MT', 'DE', 'LV',
                'LT', 'NL', 'AT', 'SK', 'RO', 'DK', 'SE'],
@@ -77,7 +76,6 @@ async def command_start_handler(message: types.Message, state: FSMContext):
     else:
         text = "Szukamy dalej! 🕵️‍♂️ Jaki rodzaj wyjazdu preferujesz?"
 
-    # ZMIANA: Dodano emoji i zmieniono "Miasto" na "Kultura i architektura"
     await message.answer(text, parse_mode="HTML",
                          reply_markup=make_reply_keyboard([
                              "Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
@@ -86,18 +84,17 @@ async def command_start_handler(message: types.Message, state: FSMContext):
 
     await state.set_state(TravelForm.choosing_type)
 
+
 @dp.message(TravelForm.choosing_type)
 async def type_chosen(message: types.Message, state: FSMContext):
-    # Mapujemy dokładnie to, co jest na przyciskach, na wartości dla bazy danych
     ui_to_db = {
         "Morze 🏖️": "Morze",
         "Góry ⛰️": "Góry",
         "Kultura i architektura 🏛️": "Miasto",
-        "Relaks i SPA 🧖‍♀️": "Relaks",  # <--- MUSI TU BYĆ
-        "Rozrywka i atrakcje 🎢": "Rozrywka"  # <--- MUSI TU BYĆ
+        "Relaks i SPA 🧖‍♀️": "Relaks",
+        "Rozrywka i atrakcje 🎢": "Rozrywka"
     }
 
-    # Pobieramy wartość z mapy lub zostawiamy oryginał (np. dla "⏭ Pomiń")
     db_type = ui_to_db.get(message.text, message.text)
 
     await state.update_data(chosen_type=db_type)
@@ -126,7 +123,7 @@ async def budget_chosen(message: types.Message, state: FSMContext):
     await state.update_data(chosen_budget=message.text)
     await message.answer(
         "Wolisz znane miejsca czy ukryte perełki? 🌟",
-        reply_markup=make_reply_keyboard(["Popularne (🌟)", "Spokojne (🤫)", "⏭ Pomiń"])
+        reply_markup=make_reply_keyboard(["Bardzo popularne (🌟🌟)", "Umiarkowane (🌟)", "Ukryte perełki (🤫)", "⏭ Pomiń"])
     )
     await state.set_state(TravelForm.choosing_popularity)
 
@@ -145,7 +142,6 @@ async def popularity_chosen(message: types.Message, state: FSMContext):
 async def climate_chosen(message: types.Message, state: FSMContext):
     await state.update_data(chosen_climate=message.text)
 
-    # ZMIANA: Pomijamy prośbę o wpisanie tekstu, jeśli AI jest wyłączone
     if USE_AI:
         await message.answer(
             "Świetnie! Czy masz jakieś dodatkowe życzenia? ✨\n"
@@ -155,11 +151,9 @@ async def climate_chosen(message: types.Message, state: FSMContext):
         )
         await state.set_state(TravelForm.waiting_for_wish)
     else:
-        # Od razu przekazujemy zadanie do handlera, który przetwarza brak życzeń
         await skip_wish_handler(message, state)
 
 
-# --- GŁÓWNY SILNIK WYSZUKIWANIA I FILTROWANIA ---
 async def get_filtered_recommendations(user_data):
     raw_destinations = get_all_destinations()
     step1_filtered = []
@@ -181,9 +175,11 @@ async def get_filtered_recommendations(user_data):
                 continue
 
         if user_data.get('chosen_popularity') not in ['⏭ Pomiń', None]:
-            if user_data['chosen_popularity'] == 'Popularne (🌟)' and d_popularity < 8:
+            if user_data['chosen_popularity'] == 'Bardzo popularne (🌟🌟)' and d_popularity < 8:
                 continue
-            elif user_data['chosen_popularity'] == 'Spokojne (🤫)' and d_popularity >= 8:
+            elif user_data['chosen_popularity'] == 'Umiarkowane (🌟)' and (d_popularity < 4 or d_popularity >= 8):
+                continue
+            elif user_data['chosen_popularity'] == 'Ukryte perełki (🤫)' and d_popularity >= 4:
                 continue
 
         step1_filtered.append(d)
@@ -191,7 +187,14 @@ async def get_filtered_recommendations(user_data):
     if not step1_filtered:
         return []
 
-    tasks = [get_weather(d[5], d[6]) for d in step1_filtered]
+    sem = asyncio.Semaphore(5)
+
+    async def fetch_weather_safe(destination):
+        async with sem:
+            await asyncio.sleep(0.05)
+            return await get_weather(destination[5], destination[6])
+
+    tasks = [fetch_weather_safe(d) for d in step1_filtered]
     weathers = await asyncio.gather(*tasks)
 
     final_recommendations = []
@@ -199,6 +202,7 @@ async def get_filtered_recommendations(user_data):
     for d, weather in zip(step1_filtered, weathers):
         country, city, d_type, d_budget, d_popularity, lat, lon, code = d
         temp = weather['temp'] if weather else None
+        wind = weather['wind'] if weather else None
 
         if temp is not None:
             if temp < 10:
@@ -214,7 +218,7 @@ async def get_filtered_recommendations(user_data):
             if actual_climate != user_data['chosen_climate']:
                 continue
 
-        final_recommendations.append((country, city, d_budget, lat, lon, code, temp, d_popularity))
+        final_recommendations.append((country, city, d_budget, lat, lon, code, temp, d_popularity, wind))
 
     return final_recommendations
 
@@ -278,28 +282,34 @@ async def skip_wish_handler(message: types.Message, state: FSMContext):
 
         response_text = "Oto najlepsze propozycje dla Ciebie na TEN MOMENT: ✈️\n\n"
         for item in recommendations[:10]:
-            country, city, cost, lat, lon, code, temp, d_popularity = item
+            country, city, cost, lat, lon, code, temp, d_popularity, wind = item
             holiday = await get_next_holiday(code)
 
             temp_info = f"{temp}°C" if temp is not None else "brak danych"
+            wind_info = f"{wind} km/h" if wind is not None else "brak danych"
             money = "💰" * cost
-            pop_stars = "🌟" if d_popularity >= 8 else "🤫"
 
-            # ZMIANA: Piękne i zwięzłe wkomponowanie ostrzeżenia o świętach
+            if d_popularity >= 8:
+                pop_stars = "🌟🌟 (Bardzo popularne)"
+            elif d_popularity >= 4:
+                pop_stars = "🌟 (Umiarkowane)"
+            else:
+                pop_stars = "🤫 (Ukryte perełki)"
+
             if holiday != "brak danych":
                 query = urllib.parse.quote_plus(f"{holiday} {country}")
                 holiday_link = f"<a href='https://www.google.com/search?q={query}'>{holiday}</a>"
-                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link}"
+                holiday_display = f"\n🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy!)</i>"
             else:
-                holiday_display = f"🎉 <b>Święta:</b> brak w najbliższym czasie"
+                holiday_display = ""
 
             maps_query = urllib.parse.quote_plus(f"{city}, {country}")
             maps_url = f"https://www.google.com/maps/search/?api=1&query={maps_query}"
 
             response_text += (
                 f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
-                f"🌡 Pogoda TERAZ: {temp_info}\n"
-                f"{holiday_display}\n"
+                f"🌡 Pogoda TERAZ: {temp_info} | 💨 Wiatr: {wind_info}" 
+                f"{holiday_display}\n" 
                 f"💵 Budżet: {money}\n\n"
             )
 
@@ -368,18 +378,59 @@ async def process_wish(message: types.Message, state: FSMContext):
         city_names = [item[1] for item in recommendations[:10]]
         await state.update_data(last_cities=city_names)
 
+        response_text = "Oto najlepsze propozycje z bazy dopasowane do Ciebie: ✈️\n\n"
+        for item in recommendations[:10]:
+            country, city, cost, lat, lon, code, temp, d_popularity, wind = item
+            holiday = await get_next_holiday(code)
+
+            temp_info = f"{temp}°C" if temp is not None else "brak danych"
+            wind_info = f"{wind} km/h" if wind is not None else "brak danych"
+            money = "💰" * cost
+
+            if d_popularity >= 8:
+                pop_stars = "🌟🌟"
+            elif d_popularity >= 4:
+                pop_stars = "🌟"
+            else:
+                pop_stars = "🤫"
+
+            if holiday != "brak danych":
+                query = urllib.parse.quote_plus(f"{holiday} {country}")
+                holiday_link = f"<a href='https://www.google.com/search?q={query}'>{holiday}</a>"
+                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy i muzea!)</i>"
+            else:
+                holiday_display = f"🎉 <b>Święta:</b> brak"
+
+            maps_query = urllib.parse.quote_plus(f"{city}, {country}")
+            maps_url = f"https://www.google.com/maps/search/?api=1&query={maps_query}"
+
+            response_text += (
+                f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
+                f"🌡 Pogoda TERAZ: {temp_info} | 💨 Wiatr: {wind_info}\n"
+                f"{holiday_display}\n"
+                f"💵 Budżet: {money}\n\n"
+            )
+
         if USE_AI:
+            await message.answer(
+                response_text,
+                parse_mode="HTML",
+                disable_web_page_preview=True
+            )
+
             ai_format_recs = [(r[0], r[1], r[2]) for r in recommendations]
             ai_suggestion = await get_local_ai_recommendation(user_wish, ai_format_recs)
 
             await message.answer(
-                f"✨ **Moja specjalna rekomendacja dla Ciebie:**\n\n{ai_suggestion}\n\n"
-                f"Udanej podróży! ✈️",
+                f"✨ <b>Moja specjalna rekomendacja (na podstawie życzenia):</b>\n\n{ai_suggestion}",
+                parse_mode="HTML",
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
             )
         else:
             await message.answer(
-                "Wyszukiwanie zakończone! (Tryb AI jest wyłączony, więc nie mogłem przeanalizować Twojego specjalnego życzenia).",
+                response_text + "\n(Tryb AI jest wyłączony, więc nie przeanalizowałem Twojego specjalnego życzenia).",
+                parse_mode="HTML",
+                disable_web_page_preview=True,
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
             )
 
@@ -473,8 +524,6 @@ async def run_console_mode():
     while True:
         user_data = {}
 
-        # ZMIANA: Dodany ładny interfejs i mapowanie dla konsoli
-        # ZMIANA: Dodane opcje i mapowanie w konsoli
         chosen_type_ui = get_console_choice(
             "Jaki rodzaj wyjazdu preferujesz?",
             ["Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
@@ -501,7 +550,7 @@ async def run_console_mode():
 
         user_data['chosen_popularity'] = get_console_choice(
             "Wolisz znane miejsca czy ukryte perełki?",
-            ["Popularne (🌟)", "Spokojne (🤫)", "⏭ Pomiń"]
+            ["Bardzo popularne (🌟🌟)", "Umiarkowane (🌟)", "Ukryte perełki (🤫)", "⏭ Pomiń"]
         )
 
         user_data['chosen_climate'] = get_console_choice(
@@ -509,7 +558,6 @@ async def run_console_mode():
             ["Ciepły", "Umiarkowany", "Mroźny", "⏭ Pomiń"]
         )
 
-        # ZMIANA: Skrypt pyta o życzenia TYLKO, jeśli włączono AI
         if USE_AI:
             user_wish = input("\nDodatkowe życzenia? (Wpisz życzenie lub wciśnij Enter, aby pominąć): ").strip()
             if not user_wish:
@@ -553,9 +601,10 @@ async def run_console_mode():
         else:
             print("\nOto najlepsze propozycje dla Ciebie na TEN MOMENT: ✈️")
             for i, item in enumerate(recommendations[:10], 1):
-                country, city, cost, lat, lon, code, temp, d_popularity = item
+                country, city, cost, lat, lon, code, temp, d_popularity, wind = item
                 temp_info = f"{temp}°C" if temp is not None else "brak danych"
-                print(f"{i}. {city}, {country} | Pogoda: {temp_info} | Budżet: {cost}/3")
+                wind_info = f"{wind} km/h" if wind is not None else "brak danych"
+                print(f"{i}. {city}, {country} | Pogoda: {temp_info}, Wiatr: {wind_info} | Budżet: {cost}/3")
 
             if user_wish and USE_AI:
                 print("\nAnalizuję Twoje życzenie przez AI... 🧠🤖")

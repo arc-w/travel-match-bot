@@ -1,6 +1,6 @@
 country,city,type,climate,cost_level,popularity,lat,lon,country_code
 Hiszpania,Barcelona,morze,ciepły,2,9,41.38,2.17,ES
-Polska,Zakopane,góry,umiarkowany,1,8,49.29,19.94,PL
+Polska,Zakopane,góry,mroźny,1,8,49.29,19.94,PL
 Włochy,Rzym,miasto,ciepły,2,10,41.90,12.49,IT
 Norwegia,Oslo,miasto,umiarkowany,3,5,59.91,10.75,NO
 Grecja,Santorini,morze,ciepły,3,9,36.39,25.46,GR
@@ -172,13 +172,13 @@ Nowa Zelandia,Wellington,miasto,umiarkowany,3,7,-41.28,174.77,NZ
 Nowa Zelandia,Wanaka,góry,umiarkowany,2,7,-44.70,169.13,NZ
 Polinezja Francuska,Bora Bora,morze,ciepły,3,10,-16.50,-151.74,PF
 Wyspy Cooka,Rarotonga,relaks,ciepły,3,7,-21.23,-159.77,CK
-USA,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
-USA,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
-USA,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
-USA,New Orleans,miasto,ciepły,2,8,29.95,-90.07,US
-USA,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
-USA,Yellowstone,góry,umiarkowany,3,9,44.42,-110.58,US
-USA,Chicago,miasto,umiarkowany,2,9,41.87,-87.62,US
+Stany Zjednoczone,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
+Stany Zjednoczone,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
+Stany Zjednoczone,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
+Stany Zjednoczone,New Orleans,miasto,ciepły,2,8,29.95,-90.07,US
+Stany Zjednoczone,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
+Stany Zjednoczone,Yellowstone,góry,umiarkowany,3,9,44.42,-110.58,US
+Stany Zjednoczone,Chicago,miasto,umiarkowany,2,9,41.87,-87.62,US
 Kanada,Toronto,miasto,umiarkowany,3,9,43.65,-79.38,CA
 Kanada,Montreal,miasto,umiarkowany,2,8,45.50,-73.56,CA
 Kanada,Quebec City,miasto,mroźny,2,8,46.81,-71.20,CA
@@ -288,14 +288,14 @@ Mjanma,Bagan,miasto,ciepły,1,7,21.17,94.86,MM
 Indie,Goa,morze,ciepły,1,9,15.29,74.12,IN
 Indie,Agra,miasto,ciepły,1,10,27.17,78.00,IN
 Malediwy,Maafushi,morze,ciepły,2,7,3.94,73.48,MV
-USA,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
-USA,Orlando,rozrywka,ciepły,3,10,28.53,-81.37,US
-USA,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
-USA,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
-USA,Nowy Orlean,miasto,ciepły,2,8,29.95,-90.07,US
-USA,Wielki Kanion,góry,ciepły,2,10,36.05,-112.11,US
-USA,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
-USA,Anchorage,góry,mroźny,3,6,61.21,-149.90,US
+Stany Zjednoczone,Las Vegas,rozrywka,ciepły,3,10,36.16,-115.13,US
+Stany Zjednoczone,Orlando,rozrywka,ciepły,3,10,28.53,-81.37,US
+Stany Zjednoczone,San Francisco,miasto,umiarkowany,3,9,37.77,-122.41,US
+Stany Zjednoczone,Los Angeles,rozrywka,ciepły,3,10,34.05,-118.24,US
+Stany Zjednoczone,Nowy Orlean,miasto,ciepły,2,8,29.95,-90.07,US
+Stany Zjednoczone,Wielki Kanion,góry,ciepły,2,10,36.05,-112.11,US
+Stany Zjednoczone,Honolulu,morze,ciepły,3,9,21.30,-157.85,US
+Stany Zjednoczone,Anchorage,góry,mroźny,3,6,61.21,-149.90,US
 Kanada,Montreal,miasto,mroźny,2,8,45.50,-73.56,CA
 Kanada,Toronto,miasto,umiarkowany,3,9,43.65,-79.38,CA
 Brazylia,Sao Paulo,miasto,ciepły,2,8,-23.55,-46.63,BR

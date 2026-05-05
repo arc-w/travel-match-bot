@@ -7,10 +7,7 @@ CSV_FILE = 'destinations.csv'
 
 
 def init_db():
-    """
-    Inicjalizuje bazę danych, tworząc tabelę i wypełniając ją danymi z pliku CSV.
-    Zawsze usuwa starą tabelę przed stworzeniem nowej, aby zaktualizować dane.
-    """
+
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
 

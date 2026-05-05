@@ -1,36 +1,25 @@
 import aiohttp
 import urllib.parse
 
-
 async def get_wikipedia_info(city_name):
-    """
-    Умный поиск: ищет текст в польской Википедии.
-    Если картинки нет, делает резервный запрос в английскую Википедию.
-    """
     headers = {
         "User-Agent": "TravelMatchBot/1.0 (travelbot.kontakt@gmail.com) aiohttp-bot",
         "Accept": "application/json"
     }
-
     async with aiohttp.ClientSession(headers=headers) as session:
         try:
-            # ШАГ 1: Поиск в ПОЛЬСКОЙ Википедии
             search_query = urllib.parse.quote(city_name.strip())
             search_url = f"https://pl.wikipedia.org/w/api.php?action=query&list=search&srsearch={search_query}&format=json"
-
             async with session.get(search_url) as search_response:
                 if search_response.status == 200:
                     search_data = await search_response.json()
                     search_results = search_data.get("query", {}).get("search", [])
-
                     if search_results:
                         formatted_title = search_results[0]["title"].replace(" ", "_")
                     else:
                         formatted_title = city_name.strip().replace(" ", "_")
                 else:
                     formatted_title = city_name.strip().replace(" ", "_")
-
-            # ШАГ 2: Забираем текст (и фото, если есть) из польской Вики
             query = urllib.parse.quote(formatted_title)
             summary_url = f"https://pl.wikipedia.org/api/rest_v1/page/summary/{query}"
 
@@ -47,7 +36,6 @@ async def get_wikipedia_info(city_name):
                     if "originalimage" in data:
                         image_url = data["originalimage"]["source"]
 
-            # ШАГ 3: FALLBACK НА АНГЛИЙСКУЮ ВИКИПЕДИЮ (только для картинки)
             if not image_url:
                 en_search_url = f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={search_query}&format=json"
                 async with session.get(en_search_url) as en_search_response:
