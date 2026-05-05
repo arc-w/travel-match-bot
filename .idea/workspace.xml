@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="added relaks and rozrywka">
+    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="added wind and fix meteo request block">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/destinations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/destinations.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/holiday_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/holiday_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/travel_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/travel_data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weather_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/weather_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/wiki_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1777915412013</updated>
       <workItem from="1777915413050" duration="11431000" />
-      <workItem from="1777999488482" duration="9187000" />
+      <workItem from="1777999488482" duration="14810000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -103,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777919016917</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added wind and fix meteo request block">
+      <option name="closed" value="true" />
+      <created>1778015262410</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778015262410</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,10 +117,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="added relaks and rozrywka" />
-    <option name="LAST_COMMIT_MESSAGE" value="added relaks and rozrywka" />
+    <MESSAGE value="added wind and fix meteo request block" />
+    <option name="LAST_COMMIT_MESSAGE" value="added wind and fix meteo request block" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/travelmatchbot$db_manager.coverage" NAME="db_manager Coverage Results" MODIFIED="1778000508939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778015135182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778020629678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

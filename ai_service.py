@@ -1,14 +1,11 @@
 import logging
 from ollama import AsyncClient
 
-# Inicjalizacja asynchronicznego klienta Ollama
 client = AsyncClient()
 
 
 async def get_local_ai_recommendation(user_wish, found_destinations):
-    """
-    Wybiera najlepsze miejsce z dostępnych w bazie na podstawie życzenia użytkownika.
-    """
+
     destinations_info = ""
     for d in found_destinations:
         destinations_info += f"- {d[1]}, {d[0]} (Budżet: {d[2]}/3)\n"
@@ -34,16 +31,10 @@ async def get_local_ai_recommendation(user_wish, found_destinations):
         return response['message']['content']
     except Exception as e:
         logging.error(f"Błąd AI Local Recommendation: {e}")
-        # Zwracamy przyjazny komunikat, jeśli AI nie odpowie
         return "Niestety, AI napotkało problem przy analizie Twojego życzenia, ale powyższe miejsca z bazy wciąż są dla Ciebie idealne! ✈️"
 
 
 async def get_fallback_ai_recommendation(user_data, user_wish=None):
-    """
-    Funkcja zapasowa (Fallback): wywoływana, gdy główna baza danych jest pusta.
-    Przekazuje filtry użytkownika bezpośrednio do AI, aby wygenerować nową propozycję.
-    """
-    # Zbieramy filtry w czytelny tekst
     filters_text = ""
     for key, value in user_data.items():
         if value and value != '⏭ Pomiń':
@@ -74,15 +65,11 @@ async def get_fallback_ai_recommendation(user_data, user_wish=None):
         )
         return response['message']['content']
     except Exception as e:
-        # Rejestrujemy błąd, jeśli AI jest wyłączone lub wystąpił problem z siecią
         logging.error(f"Błąd AI Fallback: {e}")
         return None
 
 
 async def get_city_details_ai(city_name):
-    """
-    Generuje unikalny i barwny opis wybranego miasta przez AI.
-    """
     prompt = (
         f"Jesteś profesjonalnym przewodnikiem turystycznym. "
         f"Opowiedz krótko, ciekawie i zachęcająco o mieście {city_name}. "

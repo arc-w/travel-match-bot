@@ -19,7 +19,6 @@ from wiki_service import get_wikipedia_info
 
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
-# Globalna flaga dla AI
 USE_AI = True
 
 REGION_MAP = {
@@ -70,7 +69,7 @@ async def command_start_handler(message: types.Message, state: FSMContext):
         text = (
             f"Cześć, {message.from_user.full_name}! 👋\n\n"
             f"Jestem Twoim inteligentnym asystentem podróży 🌍✈️\n"
-            f"Wybierz parametry, a ja na podstawie <b>aktualnej pogody</b> i zaawansowanych algorytmów znajdę coś dla Ciebie!\n\n"
+            f"Wybierz parametry, a ja na podstawie zaawansowanych algorytmów znajdę coś dla Ciebie!\n\n"
             f"Jaki rodzaj wyjazdu preferujesz?"
         )
     else:
@@ -79,7 +78,7 @@ async def command_start_handler(message: types.Message, state: FSMContext):
     await message.answer(text, parse_mode="HTML",
                          reply_markup=make_reply_keyboard([
                              "Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
-                             "Relaks i SPA 🧖‍♀️", "Rozrywka i atrakcje 🎢", "⏭ Pomiń"
+                             "Relaks 🧖‍♀️", "Rozrywka 🎢", "⏭ Pomiń"
                          ]))
 
     await state.set_state(TravelForm.choosing_type)
@@ -91,8 +90,8 @@ async def type_chosen(message: types.Message, state: FSMContext):
         "Morze 🏖️": "Morze",
         "Góry ⛰️": "Góry",
         "Kultura i architektura 🏛️": "Miasto",
-        "Relaks i SPA 🧖‍♀️": "Relaks",
-        "Rozrywka i atrakcje 🎢": "Rozrywka"
+        "Relaks 🧖‍♀️": "Relaks",
+        "Rozrywka 🎢": "Rozrywka"
     }
 
     db_type = ui_to_db.get(message.text, message.text)
@@ -113,7 +112,7 @@ async def region_chosen(message: types.Message, state: FSMContext):
     await state.update_data(chosen_region=message.text)
     await message.answer(
         "Jaki jest Twój budżet? 💸",
-        reply_markup=make_reply_keyboard(["Niski (💰)", "Średni (💰💰)", "Wysoki (💰💰💰)", "⏭ Pomiń"])
+        reply_markup=make_reply_keyboard(["Niski 💰", "Średni 💰💰", "Wysoki 💰💰💰", "⏭ Pomiń"])
     )
     await state.set_state(TravelForm.choosing_budget)
 
@@ -123,7 +122,7 @@ async def budget_chosen(message: types.Message, state: FSMContext):
     await state.update_data(chosen_budget=message.text)
     await message.answer(
         "Wolisz znane miejsca czy ukryte perełki? 🌟",
-        reply_markup=make_reply_keyboard(["Bardzo popularne (🌟🌟)", "Umiarkowane (🌟)", "Ukryte perełki (🤫)", "⏭ Pomiń"])
+        reply_markup=make_reply_keyboard(["Bardzo popularne 🌟🌟", "Znane 🌟", "Ukryte perełki 🤫", "⏭ Pomiń"])
     )
     await state.set_state(TravelForm.choosing_popularity)
 
@@ -132,8 +131,8 @@ async def budget_chosen(message: types.Message, state: FSMContext):
 async def popularity_chosen(message: types.Message, state: FSMContext):
     await state.update_data(chosen_popularity=message.text)
     await message.answer(
-        "Jakiego klimatu szukasz TERAZ? (na podstawie obecnej pogody 🌡️)",
-        reply_markup=make_reply_keyboard(["Ciepły", "Umiarkowany", "Mroźny", "⏭ Pomiń"])
+        "Jakiego klimatu szukasz? 🌡️",
+        reply_markup=make_reply_keyboard(["Ciepły🌡️", "Umiarkowany⛅️", "Mroźny❄️", "⏭ Pomiń"])
     )
     await state.set_state(TravelForm.choosing_climate)
 
@@ -144,10 +143,10 @@ async def climate_chosen(message: types.Message, state: FSMContext):
 
     if USE_AI:
         await message.answer(
-            "Świetnie! Czy masz jakieś dodatkowe życzenia? ✨\n"
+            "Świetnie! Czy masz jakieś dodatkowe wymogi? ✨\n"
             "(np. 'chcę zjeść dobre sushi', 'lubię starożytne ruiny')\n\n"
-            "Jeśli wolisz suchą listę, kliknij przycisk poniżej:",
-            reply_markup=make_reply_keyboard(["❌ Pomiń (bez życzeń)"])
+            "Możesz też pominąć ten krok i od razu zobaczyć najlepsze propozycje.",
+            reply_markup=make_reply_keyboard(["⏭ Pomiń"])
         )
         await state.set_state(TravelForm.waiting_for_wish)
     else:
@@ -159,7 +158,7 @@ async def get_filtered_recommendations(user_data):
     step1_filtered = []
 
     for d in raw_destinations:
-        country, city, d_type, d_budget, d_popularity, lat, lon, code = d
+        country, city, d_type, d_climate, d_budget, d_popularity, lat, lon, code = d
 
         if user_data.get('chosen_type') not in ['⏭ Pomiń', None]:
             if d_type.lower() != user_data['chosen_type'].lower():
@@ -170,16 +169,16 @@ async def get_filtered_recommendations(user_data):
                 continue
 
         if user_data.get('chosen_budget') not in ['⏭ Pomiń', None]:
-            budget_map = {'Niski (💰)': 1, 'Średni (💰💰)': 2, 'Wysoki (💰💰💰)': 3}
+            budget_map = {'Niski 💰': 1, 'Średni 💰💰': 2, 'Wysoki 💰💰💰': 3}
             if d_budget != budget_map.get(user_data['chosen_budget']):
                 continue
 
         if user_data.get('chosen_popularity') not in ['⏭ Pomiń', None]:
-            if user_data['chosen_popularity'] == 'Bardzo popularne (🌟🌟)' and d_popularity < 8:
+            if user_data['chosen_popularity'] == 'Bardzo popularne 🌟🌟' and d_popularity < 8:
                 continue
-            elif user_data['chosen_popularity'] == 'Umiarkowane (🌟)' and (d_popularity < 4 or d_popularity >= 8):
+            elif user_data['chosen_popularity'] == 'Znane 🌟' and (d_popularity < 4 or d_popularity >= 8):
                 continue
-            elif user_data['chosen_popularity'] == 'Ukryte perełki (🤫)' and d_popularity >= 4:
+            elif user_data['chosen_popularity'] == 'Ukryte perełki 🤫' and d_popularity >= 4:
                 continue
 
         step1_filtered.append(d)
@@ -188,11 +187,10 @@ async def get_filtered_recommendations(user_data):
         return []
 
     sem = asyncio.Semaphore(5)
-
     async def fetch_weather_safe(destination):
         async with sem:
             await asyncio.sleep(0.05)
-            return await get_weather(destination[5], destination[6])
+            return await get_weather(destination[6], destination[7])
 
     tasks = [fetch_weather_safe(d) for d in step1_filtered]
     weathers = await asyncio.gather(*tasks)
@@ -200,19 +198,22 @@ async def get_filtered_recommendations(user_data):
     final_recommendations = []
 
     for d, weather in zip(step1_filtered, weathers):
-        country, city, d_type, d_budget, d_popularity, lat, lon, code = d
+        country, city, d_type, d_climate, d_budget, d_popularity, lat, lon, code = d
         temp = weather['temp'] if weather else None
         wind = weather['wind'] if weather else None
 
         if temp is not None:
             if temp < 10:
-                actual_climate = "Mroźny"
+                actual_climate = "Mroźny❄️"
             elif 10 <= temp <= 23:
-                actual_climate = "Umiarkowany"
+                actual_climate = "Umiarkowany⛅️"
             else:
-                actual_climate = "Ciepły"
+                actual_climate = "Ciepły🌡️"
         else:
-            actual_climate = "Nieznany"
+            actual_climate = d_climate.lower()
+            if actual_climate == "ciepły": actual_climate = "Ciepły🌡️"
+            elif actual_climate == "umiarkowany": actual_climate = "Umiarkowany⛅️"
+            elif actual_climate == "mroźny": actual_climate = "Mroźny❄️"
 
         if user_data.get('chosen_climate') not in ['⏭ Pomiń', None]:
             if actual_climate != user_data['chosen_climate']:
@@ -223,10 +224,24 @@ async def get_filtered_recommendations(user_data):
     return final_recommendations
 
 
-@dp.message(TravelForm.waiting_for_wish, F.text == "❌ Pomiń (bez życzeń)")
+@dp.message(TravelForm.waiting_for_wish, F.text == "⏭ Pomiń")
 async def skip_wish_handler(message: types.Message, state: FSMContext):
     user_data = await state.get_data()
-    status_msg = await message.answer("Skanuję świat i sprawdzam aktualną pogodę... 🌍⏳",
+
+    skipped = ['⏭ Pomiń', None]
+    if (user_data.get('chosen_type') in skipped and
+            user_data.get('chosen_region') in skipped and
+            user_data.get('chosen_budget') in skipped and
+            user_data.get('chosen_popularity') in skipped and
+            user_data.get('chosen_climate') in skipped):
+        await message.answer(
+            "Nie wybrano żadnych filtrów ani wymogów. Spróbuj wyszukać ponownie, wybierając chociaż jedno kryterium! 😅",
+            reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"])
+        )
+        await state.set_state(None)
+        return
+
+    status_msg = await message.answer("Skanuję świat... 🌍⏳",
                                       reply_markup=ReplyKeyboardRemove())
 
     recommendations = await get_filtered_recommendations(user_data)
@@ -273,7 +288,7 @@ async def skip_wish_handler(message: types.Message, state: FSMContext):
                                      reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
         else:
             await message.answer(
-                "Niestety, nie znalazłem ofert w bazie, a zaawansowane wyszukiwanie AI jest obecnie WYŁĄCZONE. Spróbuj zmienić parametry! 😕",
+                "Niestety, nie znalazłem ofert w bazie, a mój rozszerzony system jest obecnie niedostępny. Spróbuj zmienić parametry! 😕",
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"])
             )
     else:
@@ -288,11 +303,12 @@ async def skip_wish_handler(message: types.Message, state: FSMContext):
             temp_info = f"{temp}°C" if temp is not None else "brak danych"
             wind_info = f"{wind} km/h" if wind is not None else "brak danych"
             money = "💰" * cost
-
+            budget_labels = {1: "Niski", 2: "Średni", 3: "Wysoki"}
+            budget_text = budget_labels.get(cost, "Nieznany")
             if d_popularity >= 8:
                 pop_stars = "🌟🌟 (Bardzo popularne)"
             elif d_popularity >= 4:
-                pop_stars = "🌟 (Umiarkowane)"
+                pop_stars = "🌟 (Znane)"
             else:
                 pop_stars = "🤫 (Ukryte perełki)"
 
@@ -308,9 +324,9 @@ async def skip_wish_handler(message: types.Message, state: FSMContext):
 
             response_text += (
                 f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
-                f"🌡 Pogoda TERAZ: {temp_info} | 💨 Wiatr: {wind_info}" 
-                f"{holiday_display}\n" 
-                f"💵 Budżet: {money}\n\n"
+                f"🌡 Pogoda: {temp_info} | 💨 Wiatr: {wind_info}"
+                f"{holiday_display}\n"
+                f"💵 Budżet: {money} ({budget_text})\n\n"
             )
 
         await message.answer(response_text, parse_mode="HTML", disable_web_page_preview=True,
@@ -324,7 +340,7 @@ async def process_wish(message: types.Message, state: FSMContext):
     user_wish = message.text
     user_data = await state.get_data()
 
-    status_msg = await message.answer("Łączę Twoje filtry, pogodę i specjalne życzenia... ⚙️🔍",
+    status_msg = await message.answer("Łączę Twoje filtry, pogodę i dodatkowe wymogi... ⚙️🔍",
                                       reply_markup=ReplyKeyboardRemove())
 
     recommendations = await get_filtered_recommendations(user_data)
@@ -371,7 +387,7 @@ async def process_wish(message: types.Message, state: FSMContext):
                                      reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
         else:
             await message.answer(
-                "Niestety, nie znalazłem ofert w bazie, a zaawansowane wyszukiwanie AI jest obecnie WYŁĄCZONE. Spróbuj zmienić parametry! 😕",
+                "Niestety, nie znalazłem ofert w bazie, a system zaawansowany jest obecnie niedostępny. Spróbuj zmienić parametry! 😕",
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"])
             )
     else:
@@ -386,29 +402,31 @@ async def process_wish(message: types.Message, state: FSMContext):
             temp_info = f"{temp}°C" if temp is not None else "brak danych"
             wind_info = f"{wind} km/h" if wind is not None else "brak danych"
             money = "💰" * cost
+            budget_labels = {1: "Niski", 2: "Średni", 3: "Wysoki"}
+            budget_text = budget_labels.get(cost, "Nieznany")
 
             if d_popularity >= 8:
-                pop_stars = "🌟🌟"
+                pop_stars = "🌟🌟 (Bardzo popularne)"
             elif d_popularity >= 4:
-                pop_stars = "🌟"
+                pop_stars = "🌟 (Znane)"
             else:
-                pop_stars = "🤫"
+                pop_stars = "🤫 (Ukryte perełki)"
 
             if holiday != "brak danych":
                 query = urllib.parse.quote_plus(f"{holiday} {country}")
                 holiday_link = f"<a href='https://www.google.com/search?q={query}'>{holiday}</a>"
-                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy i muzea!)</i>"
+                holiday_display = f"\n🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy!)</i>"
             else:
-                holiday_display = f"🎉 <b>Święta:</b> brak"
+                holiday_display = ""
 
             maps_query = urllib.parse.quote_plus(f"{city}, {country}")
             maps_url = f"https://www.google.com/maps/search/?api=1&query={maps_query}"
 
             response_text += (
                 f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
-                f"🌡 Pogoda TERAZ: {temp_info} | 💨 Wiatr: {wind_info}\n"
+                f"🌡 Pogoda: {temp_info} | 💨 Wiatr: {wind_info}\n"
                 f"{holiday_display}\n"
-                f"💵 Budżet: {money}\n\n"
+                f"💵 Budżet: {money} ({budget_text})\n\n"
             )
 
         if USE_AI:
@@ -422,13 +440,13 @@ async def process_wish(message: types.Message, state: FSMContext):
             ai_suggestion = await get_local_ai_recommendation(user_wish, ai_format_recs)
 
             await message.answer(
-                f"✨ <b>Moja specjalna rekomendacja (na podstawie życzenia):</b>\n\n{ai_suggestion}",
+                f"✨ <b>Moja specjalna rekomendacja:</b>\n\n{ai_suggestion}",
                 parse_mode="HTML",
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
             )
         else:
             await message.answer(
-                response_text + "\n(Tryb AI jest wyłączony, więc nie przeanalizowałem Twojego specjalnego życzenia).",
+                response_text + "\n(Tryb AI jest wyłączony, więc nie przeanalizowałem Twoje dodatkowe wymogi).",
                 parse_mode="HTML",
                 disable_web_page_preview=True,
                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
@@ -498,14 +516,14 @@ async def provide_city_details(message: types.Message, state: FSMContext):
         await message.answer(text_to_send, parse_mode="HTML", reply_markup=reply_markup)
     else:
         await message.answer(
-            f"Niestety, nie mogłem wygenerować opisu, a na Wikipedii nie znalazłem informacji o '{city_name}'.",
+            f"Niestety, nie znalazłem informacji o '{city_name}'.",
             reply_markup=reply_markup
         )
 
 
 async def run_console_mode():
     print("\n" + "=" * 40)
-    print("Cześć! Jestem Twoim inteligentnym asystentem podróży 🌍✈️")
+    print("Cześć! Jestem Twoim inteligentnym asystentem podróży️")
     print("=" * 40)
 
     def get_console_choice(title, options):
@@ -519,22 +537,22 @@ async def run_console_mode():
                 idx = int(choice) - 1
                 if 0 <= idx < len(options):
                     return options[idx]
-            print("❌ Nieprawidłowy numer. Spróbuj ponownie.")
+            print("Nieprawidłowy numer. Spróbuj ponownie.")
 
     while True:
         user_data = {}
 
         chosen_type_ui = get_console_choice(
             "Jaki rodzaj wyjazdu preferujesz?",
-            ["Morze 🏖️", "Góry ⛰️", "Kultura i architektura 🏛️",
-             "Relaks i SPA 🧖‍♀️", "Rozrywka i atrakcje 🎢", "⏭ Pomiń"]
+            ["Morze", "Góry", "Kultura i architektura",
+             "Relaks", "Rozrywka", "⏭ Pomiń"]
         )
         ui_to_db = {
-            "Morze 🏖️": "Morze",
-            "Góry ⛰️": "Góry",
-            "Kultura i architektura 🏛️": "Miasto",
-            "Relaks i SPA 🧖‍♀️": "Relaks",
-            "Rozrywka i atrakcje 🎢": "Rozrywka"
+            "Morze": "Morze",
+            "Góry": "Góry",
+            "Kultura i architektura": "Miasto",
+            "Relaks️": "Relaks",
+            "Rozrywka": "Rozrywka"
         }
         user_data['chosen_type'] = ui_to_db.get(chosen_type_ui, chosen_type_ui)
 
@@ -545,35 +563,35 @@ async def run_console_mode():
 
         user_data['chosen_budget'] = get_console_choice(
             "Jaki jest Twój budżet?",
-            ["Niski (💰)", "Średni (💰💰)", "Wysoki (💰💰💰)", "⏭ Pomiń"]
+            ["Niski", "Średni", "Wysoki", "⏭ Pomiń"]
         )
 
         user_data['chosen_popularity'] = get_console_choice(
             "Wolisz znane miejsca czy ukryte perełki?",
-            ["Bardzo popularne (🌟🌟)", "Umiarkowane (🌟)", "Ukryte perełki (🤫)", "⏭ Pomiń"]
+            ["Bardzo popularne", "Znane", "Ukryte perełki", "⏭ Pomiń"]
         )
 
         user_data['chosen_climate'] = get_console_choice(
-            "Jakiego klimatu szukasz TERAZ?",
+            "Jakiego klimatu szukasz?",
             ["Ciepły", "Umiarkowany", "Mroźny", "⏭ Pomiń"]
         )
 
         if USE_AI:
-            user_wish = input("\nDodatkowe życzenia? (Wpisz życzenie lub wciśnij Enter, aby pominąć): ").strip()
+            user_wish = input("\nDodatkowe wymogi? (Wpisz wymogi lub wciśnij Enter, aby pominąć): ").strip()
             if not user_wish:
                 user_wish = None
         else:
             user_wish = None
 
-        print("\nSkanuję świat i sprawdzam aktualną pogodę... 🌍⏳")
+        print("\nSkanuję świat... ")
         recommendations = await get_filtered_recommendations(user_data)
 
         if not recommendations:
             if USE_AI:
-                print("Baza danych jest pusta. Uruchamiam AI (Llama 3)... 🌍🔍")
+                print("Baza danych jest pusta. Uruchamiam AI... ")
                 ai_suggestion = await get_fallback_ai_recommendation(user_data, user_wish)
                 if ai_suggestion:
-                    print("\n✨ Znalazłem coś specjalnie dla Ciebie:\n")
+                    print("\nZnalazłem coś specjalnie dla Ciebie:\n")
 
                     wrapped_ai = "\n".join([textwrap.fill(p, width=80) for p in ai_suggestion.split('\n')])
                     print(wrapped_ai)
@@ -585,21 +603,21 @@ async def run_console_mode():
                             ai_city = line.split(":", 1)[1].strip()
                             break
 
-                    wiki_choice = input(f"\nCzy chcesz przeczytać o '{ai_city}' na Wikipedii? (T/N): ").strip().upper()
+                    wiki_choice = input(f"\nCzy chcesz przeczytać o '{ai_city}'? (T/N): ").strip().upper()
                     if wiki_choice == 'T':
-                        print(f"\nSzukam informacji o {ai_city}... 🔍")
+                        print(f"\nSzukam informacji o {ai_city}...")
                         wiki_text, _ = await get_wikipedia_info(ai_city)
                         if wiki_text:
                             wrapped_text = textwrap.fill(wiki_text, width=80)
-                            print(f"\n📖 WIKIPEDIA ({ai_city}):\n{wrapped_text}")
+                            print(f"\nWIKIPEDIA ({ai_city}):\n{wrapped_text}")
                         else:
                             print(f"\nBrak danych o '{ai_city}' na Wikipedii.")
                 else:
                     print("Niestety, AI nie odpowiedziało.")
             else:
-                print("❌ Niestety, brak wyników w bazie, a tryb AI jest wyłączony. Spróbuj innych filtrów.")
+                print("Niestety, brak wyników w bazie, a tryb AI jest wyłączony. Spróbuj innych filtrów.")
         else:
-            print("\nOto najlepsze propozycje dla Ciebie na TEN MOMENT: ✈️")
+            print("\nOto najlepsze propozycje dla Ciebie na TEN MOMENT: ")
             for i, item in enumerate(recommendations[:10], 1):
                 country, city, cost, lat, lon, code, temp, d_popularity, wind = item
                 temp_info = f"{temp}°C" if temp is not None else "brak danych"
@@ -607,32 +625,32 @@ async def run_console_mode():
                 print(f"{i}. {city}, {country} | Pogoda: {temp_info}, Wiatr: {wind_info} | Budżet: {cost}/3")
 
             if user_wish and USE_AI:
-                print("\nAnalizuję Twoje życzenie przez AI... 🧠🤖")
+                print("\nAnalizuję Twoje wymogi przez AI...")
                 ai_format_recs = [(r[0], r[1], r[2]) for r in recommendations]
                 ai_suggestion = await get_local_ai_recommendation(user_wish, ai_format_recs)
 
                 wrapped_ai = "\n".join([textwrap.fill(p, width=80) for p in ai_suggestion.split('\n')])
-                print(f"\n✨ Moja specjalna rekomendacja:\n{wrapped_ai}")
+                print(f"\nMoja specjalna rekomendacja:\n{wrapped_ai}")
 
             wiki_options = [item[1] for item in recommendations[:10]] + ["⏭ Pomiń"]
 
             detail = get_console_choice(
-                "O jakim mieście chcesz dowiedzieć się więcej (Wikipedia)?",
+                "O jakim mieście chcesz dowiedzieć się więcej?",
                 wiki_options
             )
 
             if detail != "⏭ Pomiń":
-                print(f"\nSzukam informacji o {detail}... 🔍")
+                print(f"\nSzukam informacji o {detail}...")
                 wiki_text, _ = await get_wikipedia_info(detail)
                 if wiki_text:
                     wrapped_text = textwrap.fill(wiki_text, width=80)
-                    print(f"\n📖 WIKIPEDIA ({detail}):\n{wrapped_text}")
+                    print(f"\nWIKIPEDIA ({detail}):\n{wrapped_text}")
                 else:
                     print(f"\nBrak danych o '{detail}' na Wikipedii.")
 
-        again = input("\n🔄 Chcesz wyszukać ponownie? (T/N): ").strip().upper()
+        again = input("\nChcesz wyszukać ponownie? (T/N): ").strip().upper()
         if again != 'T':
-            print("Do widzenia! 👋")
+            print("Do widzenia!")
             break
 
 
@@ -648,7 +666,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.WARNING)
 
     print("=== KONFIGURACJA STARTOWA ===")
-    print("Czy chcesz używać Sztucznej Inteligencji (AI)?")
+    print("Czy chcesz używać AI?")
     print("1 - Tak (Pełne możliwości, Llama 3)")
     print("2 - Nie (Tylko szybka baza danych i Wikipedia)")
     ai_choice = input("Twój wybór (1/2): ").strip()
@@ -656,7 +674,7 @@ if __name__ == "__main__":
     USE_AI = (ai_choice == "1")
 
     print("\nWybierz tryb pracy:")
-    print("1 - Bot Telegram (wymaga włączonego Telegrama)")
+    print("1 - Bot Telegram")
     print("2 - Konsola (szybki test tekstowy, bez obrazków)")
     mode = input("Twój wybór (1/2): ").strip()
 
