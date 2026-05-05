@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="added wind and fix meteo request block">
+    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="changed text and added no filters chosen func">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/destinations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/destinations.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1777915412013</updated>
       <workItem from="1777915413050" duration="11431000" />
-      <workItem from="1777999488482" duration="14810000" />
+      <workItem from="1777999488482" duration="15965000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -108,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778015262410</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="changed text and added no filters chosen func">
+      <option name="closed" value="true" />
+      <created>1778020944085</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778020944085</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,10 +123,11 @@
     <MESSAGE value="init" />
     <MESSAGE value="added relaks and rozrywka" />
     <MESSAGE value="added wind and fix meteo request block" />
-    <option name="LAST_COMMIT_MESSAGE" value="added wind and fix meteo request block" />
+    <MESSAGE value="changed text and added no filters chosen func" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed text and added no filters chosen func" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/travelmatchbot$db_manager.coverage" NAME="db_manager Coverage Results" MODIFIED="1778000508939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778020629678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/travelmatchbot$db_manager.coverage" NAME="db_manager Coverage Results" MODIFIED="1778020861024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778021790275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

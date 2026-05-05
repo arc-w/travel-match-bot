@@ -343,53 +343,56 @@ async def process_wish(message: types.Message, state: FSMContext):
     status_msg = await message.answer("Łączę Twoje filtry, pogodę i dodatkowe wymogi... ⚙️🔍",
                                       reply_markup=ReplyKeyboardRemove())
 
-    recommendations = await get_filtered_recommendations(user_data)
+    skipped = ['⏭ Pomiń', None]
+    if (user_data.get('chosen_type') in skipped and
+            user_data.get('chosen_region') in skipped and
+            user_data.get('chosen_budget') in skipped and
+            user_data.get('chosen_popularity') in skipped and
+            user_data.get('chosen_climate') in skipped):
+        recommendations = []
+    else:
+        recommendations = await get_filtered_recommendations(user_data)
+
     await status_msg.delete()
 
     if not recommendations:
-        if USE_AI:
-            ai_status = await message.answer(
-                "Brak wyników w głównej bazie. Uruchamiam globalne wyszukiwanie najciekawszych miejsc... 🌐🔍")
-            try:
-                ai_suggestion = await get_fallback_ai_recommendation(user_data, user_wish)
-                await ai_status.delete()
+        ai_status = await message.answer(
+            "Omijasz standardowe filtry! Uruchamiam globalne wyszukiwanie na podstawie Twoich dodatkowych wymog... 🌐🔍")
+        try:
+            ai_suggestion = await get_fallback_ai_recommendation(user_data, user_wish)
+            await ai_status.delete()
 
-                if ai_suggestion:
-                    lines = [line.strip() for line in ai_suggestion.strip().split('\n') if line.strip()]
-                    city_name = lines[0]
+            if ai_suggestion:
+                lines = [line.strip() for line in ai_suggestion.strip().split('\n') if line.strip()]
+                city_name = lines[0]
 
-                    for line in lines:
-                        if line.lower().startswith("miasto:"):
-                            city_name = line.split(":", 1)[1].strip()
-                            break
+                for line in lines:
+                    if line.lower().startswith("miasto:"):
+                        city_name = line.split(":", 1)[1].strip()
+                        break
 
-                    description = ai_suggestion.replace(f"Miasto: {city_name}", "").replace("Miasto:", "").replace(
-                        "Opis:", "").strip()
-                    description = '\n'.join([line.strip() for line in description.split('\n') if line.strip()])
+                description = ai_suggestion.replace(f"Miasto: {city_name}", "").replace("Miasto:", "").replace(
+                    "Opis:", "").strip()
+                description = '\n'.join([line.strip() for line in description.split('\n') if line.strip()])
 
-                    await state.update_data(last_cities=[city_name])
+                await state.update_data(last_cities=[city_name])
 
-                    _, wiki_image = await get_wikipedia_info(city_name)
-                    final_text = f"✨ <b>Znalazłem coś specjalnie dla Ciebie:</b>\n\n<b>{city_name}</b>\n{description}\n\nUdanej podróży! ✈️"
+                _, wiki_image = await get_wikipedia_info(city_name)
+                final_text = f"✨ <b>Znalazłem coś specjalnie dla Ciebie:</b>\n\n<b>{city_name}</b>\n{description}\n\nUdanej podróży! ✈️"
 
-                    if wiki_image:
-                        await message.answer_photo(photo=wiki_image)
+                if wiki_image:
+                    await message.answer_photo(photo=wiki_image)
 
-                    await message.answer(final_text, parse_mode="HTML",
-                                         reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
-                else:
-                    await message.answer(
-                        "Niestety, nie znalazłem ofert, a system zaawansowany jest obecnie niedostępny. Spróbuj zmienić parametry! 😕",
-                        reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
-            except Exception:
-                await ai_status.delete()
-                await message.answer("Niestety, nie znalazłem ofert. Spróbuj zmienić parametry! 😕",
+                await message.answer(final_text, parse_mode="HTML",
                                      reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
-        else:
-            await message.answer(
-                "Niestety, nie znalazłem ofert w bazie, a system zaawansowany jest obecnie niedostępny. Spróbuj zmienić parametry! 😕",
-                reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"])
-            )
+            else:
+                await message.answer(
+                    "Niestety, nie znalazłem ofert, a system zaawansowany jest obecnie niedostępny. Spróbuj zmienić parametry! 😕",
+                    reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
+        except Exception:
+            await ai_status.delete()
+            await message.answer("Niestety, nie znalazłem ofert. Spróbuj zmienić parametry! 😕",
+                                 reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie"]))
     else:
         city_names = [item[1] for item in recommendations[:10]]
         await state.update_data(last_cities=city_names)
@@ -429,31 +432,22 @@ async def process_wish(message: types.Message, state: FSMContext):
                 f"💵 Budżet: {money} ({budget_text})\n\n"
             )
 
-        if USE_AI:
-            await message.answer(
-                response_text,
-                parse_mode="HTML",
-                disable_web_page_preview=True
-            )
+        await message.answer(
+            response_text,
+            parse_mode="HTML",
+            disable_web_page_preview=True
+        )
 
-            ai_format_recs = [(r[0], r[1], r[2]) for r in recommendations]
-            ai_suggestion = await get_local_ai_recommendation(user_wish, ai_format_recs)
+        ai_format_recs = [(r[0], r[1], r[2]) for r in recommendations]
+        ai_suggestion = await get_local_ai_recommendation(user_wish, ai_format_recs)
 
-            await message.answer(
-                f"✨ <b>Moja specjalna rekomendacja:</b>\n\n{ai_suggestion}",
-                parse_mode="HTML",
-                reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
-            )
-        else:
-            await message.answer(
-                response_text + "\n(Tryb AI jest wyłączony, więc nie przeanalizowałem Twoje dodatkowe wymogi).",
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-                reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
-            )
+        await message.answer(
+            f"✨ <b>Moja specjalna rekomendacja:</b>\n\n{ai_suggestion}",
+            parse_mode="HTML",
+            reply_markup=make_reply_keyboard(["🔄 Wyszukaj ponownie", "📖 Opowiedz mi więcej"])
+        )
 
     await state.set_state(None)
-
 
 @dp.message(F.text == "📖 Opowiedz mi więcej")
 async def ask_for_city_details(message: types.Message, state: FSMContext):
