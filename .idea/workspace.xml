@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="added only ai filter use case">
+    <list default="true" id="b209f276-7a8c-4151-aef2-58ec4b7e3e2e" name="Changes" comment="fix minor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/destinations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/destinations.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +41,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ai_service.executor": "Run",
     "Python.db_manager.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -80,7 +80,8 @@
       <option name="presentableId" value="Default" />
       <updated>1777915412013</updated>
       <workItem from="1777915413050" duration="11431000" />
-      <workItem from="1777999488482" duration="24111000" />
+      <workItem from="1777999488482" duration="24181000" />
+      <workItem from="1778070246697" duration="13988000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -122,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778022362583</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix minor">
+      <option name="closed" value="true" />
+      <created>1778037390567</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778037390567</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,10 +143,12 @@
     <MESSAGE value="added wind and fix meteo request block" />
     <MESSAGE value="changed text and added no filters chosen func" />
     <MESSAGE value="added only ai filter use case" />
-    <option name="LAST_COMMIT_MESSAGE" value="added only ai filter use case" />
+    <MESSAGE value="fix minor" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix minor" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/travelmatchbot$ai_service.coverage" NAME="ai_service Coverage Results" MODIFIED="1778103288187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/travelmatchbot$db_manager.coverage" NAME="db_manager Coverage Results" MODIFIED="1778020861024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778033830478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/travelmatchbot$main.coverage" NAME="main Coverage Results" MODIFIED="1778103292809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

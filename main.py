@@ -143,7 +143,7 @@ async def climate_chosen(message: types.Message, state: FSMContext):
 
     if USE_AI:
         await message.answer(
-            "Świetnie! Czy masz jakieś dodatkowe wymogi? ✨\n"
+            "Świetnie! Czy masz jakieś dodatkowe preferencje? ✨\n"
             "(np. 'chcę zjeść dobre sushi', 'lubię starożytne ruiny')\n\n"
             "Możesz też pominąć ten krok i od razu zobaczyć najlepsze propozycje.",
             reply_markup=make_reply_keyboard(["⏭ Pomiń"])
@@ -357,7 +357,7 @@ async def process_wish(message: types.Message, state: FSMContext):
 
     if not recommendations:
         ai_status = await message.answer(
-            "Omijasz standardowe filtry! Uruchamiam globalne wyszukiwanie na podstawie Twoich dodatkowych wymog... 🌐🔍")
+            "Uruchamiam globalne wyszukiwanie na podstawie Twoich dodatkowych wymog... 🌐🔍")
         try:
             ai_suggestion = await get_fallback_ai_recommendation(user_data, user_wish)
             await ai_status.delete()
@@ -428,7 +428,7 @@ async def process_wish(message: types.Message, state: FSMContext):
             response_text += (
                 f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
                 f"🌡 Pogoda: {temp_info} | 💨 Wiatr: {wind_info}\n"
-                f"{holiday_display}"
+                f"{holiday_display}\n"
                 f"💵 Budżet: {money} ({budget_text})\n\n"
             )
 
