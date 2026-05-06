@@ -418,7 +418,7 @@ async def process_wish(message: types.Message, state: FSMContext):
             if holiday != "brak danych":
                 query = urllib.parse.quote_plus(f"{holiday} {country}")
                 holiday_link = f"<a href='https://www.google.com/search?q={query}'>{holiday}</a>"
-                holiday_display = f"\n🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy!)</i>"
+                holiday_display = f"🎉 <b>Uwaga na święto:</b> {holiday_link} <i>(możliwe zamknięte sklepy!)</i>"
             else:
                 holiday_display = ""
 
@@ -428,7 +428,7 @@ async def process_wish(message: types.Message, state: FSMContext):
             response_text += (
                 f"✅ <a href='{maps_url}'><b>{city}, {country}</b></a> {pop_stars}\n"
                 f"🌡 Pogoda: {temp_info} | 💨 Wiatr: {wind_info}\n"
-                f"{holiday_display}\n"
+                f"{holiday_display}"
                 f"💵 Budżet: {money} ({budget_text})\n\n"
             )
 

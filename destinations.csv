@@ -2,7 +2,7 @@ country,city,type,climate,cost_level,popularity,lat,lon,country_code
 Hiszpania,Barcelona,morze,ciepły,2,9,41.38,2.17,ES
 Polska,Zakopane,góry,mroźny,1,8,49.29,19.94,PL
 Włochy,Rzym,miasto,ciepły,2,10,41.90,12.49,IT
-Norwegia,Oslo,miasto,umiarkowany,3,5,59.91,10.75,NO
+Norwegia,Oslo,miasto,umiarkowany,3,7,59.91,10.75,NO
 Grecja,Santorini,morze,ciepły,3,9,36.39,25.46,GR
 Gruzja,Batumi,morze,ciepły,1,6,41.61,41.63,GE
 Polska,Gdańsk,morze,umiarkowany,2,7,54.35,18.64,PL
@@ -17,7 +17,7 @@ Czechy,Praga,miasto,umiarkowany,2,9,50.07,14.43,CZ
 Węgry,Budapeszt,miasto,umiarkowany,1,8,47.49,19.04,HU
 Turcja,Antalya,morze,ciepły,1,9,36.89,30.71,TR
 Cypr,Larnaka,morze,ciepły,2,7,34.92,33.62,CY
-Malta,Valletta,miasto,ciepły,2,8,35.89,14.51,MT
+Malta,Valletta,miasto,ciepły,3,8,35.89,14.51,MT
 Chorwacja,Dubrownik,morze,ciepły,2,9,42.65,18.09,HR
 Bułgaria,Słoneczny Brzeg,morze,ciepły,1,8,42.69,27.71,BG
 Tajlandia,Phuket,morze,ciepły,2,9,7.88,98.39,TH
@@ -43,8 +43,8 @@ Bułgaria,Bansko,góry,umiarkowany,1,7,41.83,23.48,BG
 Rumunia,Braszów,góry,umiarkowany,1,7,45.64,25.59,RO
 Hiszpania,Gran Canaria,morze,ciepły,2,8,27.95,-15.58,ES
 Maroko,Góry Atlas,góry,ciepły,1,6,31.25,-7.98,MA
-RPA,Kapsztad,miasto,umiarkowany,2,8,-33.92,18.42,ZA
-Portugalia,Madera,góry,ciepły,2,9,32.76,-16.95,PT
+RPA,Kapsztad,miasto,umiarkowany,3,8,-33.92,18.42,ZA
+Portugalia,Madera,góry,ciepły,3,9,32.76,-16.95,PT
 Dania,Kopenhaga,miasto,umiarkowany,3,8,55.67,12.56,DK
 Szwecja,Sztokholm,miasto,umiarkowany,3,8,59.32,18.06,SE
 Egipt,Kair,miasto,ciepły,1,8,30.04,31.23,EG
@@ -71,7 +71,7 @@ Portugalia,Azory,morze,umiarkowany,2,6,37.74,-25.67,PT
 Szwecja,Kiruna,góry,mroźny,3,6,67.85,20.22,SE
 Norwegia,Tromso,miasto,mroźny,3,8,69.64,18.95,NO
 Chorwacja,Rovinj,morze,umiarkowany,2,7,45.08,13.63,HR
-Cypr,Pafos,morze,ciepły,2,7,34.77,32.42,CY
+Cypr,Pafos,morze,ciepły,3,7,34.77,32.42,CY
 Czechy,Brno,miasto,umiarkowany,1,6,49.19,16.60,CZ
 Polska,Bieszczady,góry,umiarkowany,1,6,49.11,22.48,PL
 Gruzja,Mestia,góry,umiarkowany,1,5,43.04,42.72,GE
@@ -155,7 +155,7 @@ Tunezja,Hammamet,morze,ciepły,1,7,36.40,10.61,TN
 Seszele,Mahe,morze,ciepły,3,9,-4.67,55.45,SC
 Mauritius,Flic en Flac,relaks,ciepły,3,8,-20.27,57.36,MU
 Namibia,Swakopmund,morze,umiarkowany,2,6,-22.67,14.53,NA
-Namibia,Windhuk,miasto,umiarkowany,2,5,-22.56,17.06,NA
+Namibia,Windhuk,miasto,umiarkowany,2,4,-22.56,17.06,NA
 Maroko,Chefchaouen,miasto,umiarkowany,1,8,35.17,-5.26,MA
 Egipt,Hurghada,morze,ciepły,1,9,27.25,33.81,EG
 Egipt,Sharm El Sheikh,rozrywka,ciepły,1,9,27.91,34.32,EG
@@ -296,15 +296,15 @@ Islandia,Myvatn,relaks,mroźny,3,7,65.60,-16.96,IS
 Kanada,Winnipeg,miasto,mroźny,2,6,49.90,-97.14,CA
 Kanada,Whitehorse,miasto,mroźny,3,6,60.72,-135.05,CA
 Kanada,Yellowknife,miasto,mroźny,3,6,62.45,-114.37,CA
-Kanada,Churchill,morze,mroźny,3,5,58.77,-94.17,CA
+Kanada,Churchill,morze,mroźny,3,3,58.77,-94.17,CA
 Kanada,Iqaluit,miasto,mroźny,3,6,63.75,-68.52,CA
-Kanada,Kuujjuaq,miasto,mroźny,3,5,58.10,-68.40,CA
+Kanada,Kuujjuaq,miasto,mroźny,3,3,58.10,-68.40,CA
 Stany Zjednoczone,Juneau,miasto,mroźny,3,7,58.30,-134.42,US
-Stany Zjednoczone,Utqiagvik,miasto,mroźny,3,5,71.29,-156.79,US
+Stany Zjednoczone,Utqiagvik,miasto,mroźny,3,3,71.29,-156.79,US
 Stany Zjednoczone,Fairbanks,miasto,mroźny,3,6,64.84,-147.72,US
 Stany Zjednoczone,Jackson Hole,góry,mroźny,3,8,43.48,-110.76,US
 Argentyna,Ushuaia,miasto,mroźny,3,8,-54.80,-68.31,AR
-Chile,Punta Arenas,miasto,mroźny,2,6,-53.16,-70.91,CL
+Chile,Punta Arenas,miasto,mroźny,2,3,-53.16,-70.91,CL
 Chile,Puerto Natales,relaks,mroźny,2,7,-51.73,-72.50,CL
 Japonia,Sapporo,miasto,mroźny,3,8,43.06,141.35,JP
 Japonia,Noboribetsu,relaks,mroźny,3,7,42.49,141.15,JP
